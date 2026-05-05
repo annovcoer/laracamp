@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,10 @@ Route::get('checkout', function () {
 Route::get('success_checkout', function () {
     return view('success_checkout');
 })->name('success_checkout');
+
+// socialite route
+Route::get('sign-in-google', [UserController::class,'google'])->name('user.login.google');
+Route::get('auth/google/callback',[UserController::class,'handleProviderCallback'])->name('user.google.callback');
 
 
 Route::get('/dashboard', function () {
