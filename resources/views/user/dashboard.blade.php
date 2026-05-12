@@ -33,6 +33,7 @@
         </div>
         <div class="row my-5">
             {{-- {{$checkout}} --}}
+            @include('components.alert')
             <table class="table">
                 <tbody>
                     @forelse ($checkout as $checkout)
