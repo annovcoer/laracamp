@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Socialite;
 use App\Models\User;
 use Auth;
+use Mail;
+use App\Mail\User\AfterRegister;
 
 class UserController extends Controller
 {
@@ -27,7 +29,16 @@ class UserController extends Controller
             //'email_verified_at'=> now()
         ];
 
-        $user = User::firstOrCreate(['email'=>$data['email']],$data);
+        // $user = User::firstOrCreate(['email'=>$data['email']],$data);
+
+        // Digunakan untuk mailtrap/ atau Email seperti Gmail, Yahoo dll (email after register)
+        $user = User::whereEmail($data['email'])->first();
+        if (!$user){
+            $user = User::create($data);
+        }
+            // mengirim email ke user
+            Mail::to($user->email)->send(new AfterRegister($user));
+
         Auth::login($user, true);
 
         return redirect(route('welcome'));
