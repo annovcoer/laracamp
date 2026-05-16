@@ -43,7 +43,11 @@
                     <!-- Pindahkan penutup </a> ke sini -->
                     <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         Halo, {{Auth::user()->name}}
-                        <img src="{{Auth::user()->avatar}}" class="user-photo" alt="">
+                        @if (Auth::user()->avatar)
+                        <img src="{{Auth::user()->avatar}}" class="user-photo" alt="" style="border-radius: 50%">
+                        @else
+                        <img src="https://ui-avatars.com/api/?name=admin" class="user-photo" alt="" style="border-radius: 50%">
+                        @endif
                     </a>
 
                     <!-- Sekarang <ul> berada di luar <a> -->
